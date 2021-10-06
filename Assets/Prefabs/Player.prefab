@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 1685859760865444082}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54022b494a8560d45995728105fdc0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lives: 2
 --- !u!114 &1685859760865444081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +147,7 @@ MonoBehaviour:
   _speed: 5
   _g: 15
   _jumpspeed: 6
+  _startingPosition: {x: 0, y: 0, z: 0}
   _velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1685859760865444082
 MonoBehaviour:

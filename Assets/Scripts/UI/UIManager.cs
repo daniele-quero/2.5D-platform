@@ -22,6 +22,10 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private Text _livesText;
+
+    [SerializeField]
+    private Text _elevetorText;
+
     //[SerializeField]
     //private GameObject _pauseMenu;
 
@@ -58,5 +62,17 @@ public class UIManager : MonoBehaviour
     public void UpdateLivesText(int val)
     {
         _livesText.text = "x " + val.ToString("00");
+    }
+
+    public void UpdateElevatorText(bool isOk)
+    {
+        _elevetorText.text = isOk ?
+        @"Press 'E' to call the Elevator" :
+        "Not enough coins to call the Elevator!";
+    }
+
+    public void SetElevatorText(string s)
+    {
+        _elevetorText.text = s;
     }
 }

@@ -39,7 +39,7 @@ public class CameraFollow : MonoBehaviour
         if (Mathf.Abs(transform.position.y - _playerMovement.transform.position.y) > _threshold.y)
             position.y = _playerMovement.transform.position.y;
 
-        float speed = Mathf.Max(_speed, _playerMovement.Velocity.magnitude);
+        float speed = Mathf.Max(_speed, _playerMovement.Velocity.magnitude) * 3f;
         transform.position = Vector3.MoveTowards(transform.position, position, _speed * Time.deltaTime);
     }
 
