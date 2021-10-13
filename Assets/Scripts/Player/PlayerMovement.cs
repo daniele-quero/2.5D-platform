@@ -6,29 +6,32 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 2f;
-    [SerializeField]
-    private float _g = 9.81f;
-    [SerializeField]
-    private float _jumpspeed = 8f;
-    [SerializeField]
-    private Vector3 _startingPosition;
+    private float _speed = 2f, _g = 9.81f, _jumpspeed = 8f;
+    private float _groundedVelocity = -0.001f;
 
-    private CharacterController _controller;
-    private bool _canDoubleJump = false;
-    private float _groundedVelocity = -0.00001f;
-
+    [SerializeField]
+    private Vector3 _startingPosition, _velocity = Vector3.zero;
     private Vector3 _hitWallNormal;
-    private bool _canWallJump = false;
-    [SerializeField]
-    private Vector3 _velocity = Vector3.zero;
+    Vector3 _lastNonZeroSpeed = Vector3.forward;
 
-    public Vector3 Velocity { get => _velocity; }
+    private PlayerAnimation _pa;
+    private CharacterController _controller;
+
+    [SerializeField]
+    private Transform _modelTransform;
+
+    private bool _canDoubleJump = false;
+    private bool _canWallJump = false;
+
+    public Vector3 Velocity { get => _velocity; set => _velocity = value; }
+    public Vector3 HitWallNormal { get => _hitWallNormal; set => _hitWallNormal = value; }
+    public bool CanWallJump { get => _canWallJump; set => _canWallJump = value; }
 
     void Start()
     {
         _controller = GetComponent<CharacterController>();
         _controller.minMoveDistance = 0;
+        _pa = GetComponent<PlayerAnimation>();
     }
 
 
@@ -39,29 +42,35 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-
-
-            
-
         if (_controller.isGrounded)
         {
             _canWallJump = false;
-                _velocity.x = Input.GetAxis("Horizontal") * _speed;
-                _canDoubleJump = false;
+            _velocity.z = Input.GetAxis("Horizontal") * _speed;
+
+            Vector3 worldHorizontalSpeed = Vector3.forward * _velocity.z + Vector3.right * _velocity.x;
+            _lastNonZeroSpeed = worldHorizontalSpeed != Vector3.zero ? worldHorizontalSpeed : _lastNonZeroSpeed;
+            _pa.SetRunningAnimationParameters(worldHorizontalSpeed);
+            //_pa.animator.ResetTrigger("onJump");
+            //_pa.animator.SetFloat("speed", worldHorizontalSpeed.magnitude);
+            //_pa.animator.SetFloat("fallingSpeed", 0);
+            _modelTransform.rotation = Quaternion.LookRotation(_lastNonZeroSpeed, Vector3.up);
+            _canDoubleJump = false;
             _velocity.y = _groundedVelocity;
             Jump();
         }
         else
         {
-            //_velocity.y += -_g;
             _velocity.y += -0.5f * _g * Time.deltaTime;
+
             if (_canDoubleJump && !_canWallJump)
                 Jump();
 
             else if (_canWallJump)
                 WallJump();
-        }
 
+            _pa.SetFallingAnimationParameters(_velocity.y);
+            //_pa.animator.SetFloat("fallingSpeed", _velocity.y);
+        }
 
         _controller.Move(_velocity * Time.deltaTime);
     }
@@ -72,6 +81,9 @@ public class PlayerMovement : MonoBehaviour
         {
             _velocity.y = _jumpspeed;
             _canDoubleJump = !_canDoubleJump;
+            _pa.SetJumpAnimationParameters();
+            //_pa.animator.SetTrigger("onJump");
+            //_pa.animator.SetFloat("speed", 0f);
         }
     }
 
@@ -79,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _velocity = (Vector3.up + _hitWallNormal*1.04f).normalized * _jumpspeed *0.6f;
+            _velocity = (Vector3.up + _hitWallNormal * 1.04f).normalized * _jumpspeed * 0.6f;
             _canWallJump = !_canWallJump;
         }
     }
@@ -90,34 +102,34 @@ public class PlayerMovement : MonoBehaviour
         transform.position = _startingPosition;
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.normal.y == -1f)
-        {
-            _velocity.y = -0.6f;
-            _velocity.x *= 0.9f;
-        }
+    //private void OnControllerColliderHit(ControllerColliderHit hit)
+    //{
+    //    if (hit.normal.y == -1f)
+    //    {
+    //        _velocity.y = -0.6f;
+    //        _velocity.x *= 0.9f;
+    //    }
 
-        switch (hit.gameObject.tag)
-        {
-            case "jumpableWall":
-                {
-                    _hitWallNormal = hit.normal;
-                    _canWallJump = true;
-                    break;
-                }
-            case "movable":
-                {
-                    PushMovables(hit);
-                    break;
-                }
-            default:
-                break;
-        }
+    //    switch (hit.gameObject.tag)
+    //    {
+    //        case "jumpableWall":
+    //            {
+    //                _hitWallNormal = hit.normal;
+    //                _canWallJump = true;
+    //                break;
+    //            }
+    //        case "movable":
+    //            {
+    //                PushMovables(hit);
+    //                break;
+    //            }
+    //        default:
+    //            break;
+    //    }
 
-    }
+    //}
 
-    private void PushMovables(ControllerColliderHit hit)
+    public void PushMovables(ControllerColliderHit hit)
     {
         Rigidbody rg;
         if ((rg = hit.gameObject.GetComponent<Rigidbody>()) == null)

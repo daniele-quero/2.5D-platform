@@ -9,11 +9,14 @@ public class UI3DElement : MonoBehaviour
     private GameObject _original;
     [SerializeField]
     private float _scale = 20f;
+
+    public bool lookAtCamera = true;
     void Start()
     {
         InstantiateIcon();
         CleanComponents();
-        transform.LookAt(Camera.main.transform);
+        if (lookAtCamera)
+            transform.LookAt(Camera.main.transform);
     }
 
     private void InstantiateIcon()
@@ -34,9 +37,10 @@ public class UI3DElement : MonoBehaviour
         foreach (var c in components)
             if (!(c is Transform) && !(c is RectTransform)
                 && !(c is MeshFilter) && !(c is MeshRenderer)
+                && !(c is SkinnedMeshRenderer)
                 && !(c is Animator) && c != this)
             {
-                Component.Destroy(c); 
+                Component.Destroy(c);
             }
     }
 
