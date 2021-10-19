@@ -34,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
         _pa = GetComponent<PlayerAnimation>();
     }
 
-
     void Update()
     {
         Move();
@@ -44,18 +43,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_controller.isGrounded)
         {
-            _canWallJump = false;
             _velocity.z = Input.GetAxis("Horizontal") * _speed;
+            _velocity.y = _groundedVelocity;
 
             Vector3 worldHorizontalSpeed = Vector3.forward * _velocity.z + Vector3.right * _velocity.x;
             _lastNonZeroSpeed = worldHorizontalSpeed != Vector3.zero ? worldHorizontalSpeed : _lastNonZeroSpeed;
+
             _pa.SetRunningAnimationParameters(worldHorizontalSpeed);
-            //_pa.animator.ResetTrigger("onJump");
-            //_pa.animator.SetFloat("speed", worldHorizontalSpeed.magnitude);
-            //_pa.animator.SetFloat("fallingSpeed", 0);
             _modelTransform.rotation = Quaternion.LookRotation(_lastNonZeroSpeed, Vector3.up);
+
             _canDoubleJump = false;
-            _velocity.y = _groundedVelocity;
+            _canWallJump = false;
+
             Jump();
         }
         else
@@ -82,8 +81,6 @@ public class PlayerMovement : MonoBehaviour
             _velocity.y = _jumpspeed;
             _canDoubleJump = !_canDoubleJump;
             _pa.SetJumpAnimationParameters();
-            //_pa.animator.SetTrigger("onJump");
-            //_pa.animator.SetFloat("speed", 0f);
         }
     }
 
@@ -101,33 +98,6 @@ public class PlayerMovement : MonoBehaviour
         _velocity = Vector3.zero;
         transform.position = _startingPosition;
     }
-
-    //private void OnControllerColliderHit(ControllerColliderHit hit)
-    //{
-    //    if (hit.normal.y == -1f)
-    //    {
-    //        _velocity.y = -0.6f;
-    //        _velocity.x *= 0.9f;
-    //    }
-
-    //    switch (hit.gameObject.tag)
-    //    {
-    //        case "jumpableWall":
-    //            {
-    //                _hitWallNormal = hit.normal;
-    //                _canWallJump = true;
-    //                break;
-    //            }
-    //        case "movable":
-    //            {
-    //                PushMovables(hit);
-    //                break;
-    //            }
-    //        default:
-    //            break;
-    //    }
-
-    //}
 
     public void PushMovables(ControllerColliderHit hit)
     {

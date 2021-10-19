@@ -25,4 +25,13 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetFloat("fallingSpeed", yvel);
     }
 
+    public void SetGrabLedgeAnimationParameters()
+    {
+        animator.SetTrigger("onLedgeGrab");
+    }
+
+    public void SetClimbLedgeAnimationParameters()
+    {
+        animator.SetTrigger("onLedgeClimb");
+    }
 }

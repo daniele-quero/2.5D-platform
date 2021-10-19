@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     private PlayerMovement _pm;
-
     void Start()
     {
         _pm = GetComponent<PlayerMovement>();

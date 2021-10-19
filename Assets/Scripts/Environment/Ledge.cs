@@ -8,7 +8,7 @@ public class Ledge : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Player On Ledge");
+            other.GetComponent<LedgeGrab>().GrabLedge(transform.GetChild(0).transform);
         }
 
     }
