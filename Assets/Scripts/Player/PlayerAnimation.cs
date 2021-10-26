@@ -34,4 +34,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetTrigger("onLedgeClimb");
     }
+
+    public void SetDeathAnimationParameters()
+    {
+        animator.SetTrigger("onDeath");
+    }
 }

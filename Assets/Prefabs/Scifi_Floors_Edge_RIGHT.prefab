@@ -435,7 +435,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2448391232909142932}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 68.60013, z: 49.32716}
   m_LocalScale: {x: 1, y: 1, z: -1}
   m_Children:
@@ -2028,6 +2028,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5090690923746544596}
     m_Modifications:
+    - target: {fileID: 959775276290678295, guid: 9cb44ec20fda4dc4cbdd9005f9bcb2a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 959775276290678295, guid: 9cb44ec20fda4dc4cbdd9005f9bcb2a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.03
+      objectReference: {fileID: 0}
     - target: {fileID: 4238725013780153125, guid: 9cb44ec20fda4dc4cbdd9005f9bcb2a7, type: 3}
       propertyPath: m_Name
       value: Ledge
@@ -2058,7 +2066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4238725013780153146, guid: 9cb44ec20fda4dc4cbdd9005f9bcb2a7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.97
+      value: -1.47
       objectReference: {fileID: 0}
     - target: {fileID: 4238725013780153146, guid: 9cb44ec20fda4dc4cbdd9005f9bcb2a7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2091,6 +2099,10 @@ PrefabInstance:
     - target: {fileID: 4238725013780153147, guid: 9cb44ec20fda4dc4cbdd9005f9bcb2a7, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221840196330083816, guid: 9cb44ec20fda4dc4cbdd9005f9bcb2a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.46
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cb44ec20fda4dc4cbdd9005f9bcb2a7, type: 3}

@@ -22,10 +22,12 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _canDoubleJump = false;
     private bool _canWallJump = false;
+    public bool isGrounded;
 
     public Vector3 Velocity { get => _velocity; set => _velocity = value; }
     public Vector3 HitWallNormal { get => _hitWallNormal; set => _hitWallNormal = value; }
     public bool CanWallJump { get => _canWallJump; set => _canWallJump = value; }
+    public Vector3 StartingPosition { get => _startingPosition; set => _startingPosition = value; }
 
     void Start()
     {
@@ -37,18 +39,21 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Move();
+        isGrounded = _controller.isGrounded;
     }
 
     private void Move()
     {
+        _velocity.z = Input.GetAxis("Horizontal") * _speed;
         if (_controller.isGrounded)
         {
-            _velocity.z = Input.GetAxis("Horizontal") * _speed;
+
             _velocity.y = _groundedVelocity;
 
             Vector3 worldHorizontalSpeed = Vector3.forward * _velocity.z + Vector3.right * _velocity.x;
             _lastNonZeroSpeed = worldHorizontalSpeed != Vector3.zero ? worldHorizontalSpeed : _lastNonZeroSpeed;
 
+            _pa.SetFallingAnimationParameters(0);
             _pa.SetRunningAnimationParameters(worldHorizontalSpeed);
             _modelTransform.rotation = Quaternion.LookRotation(_lastNonZeroSpeed, Vector3.up);
 
@@ -68,10 +73,10 @@ public class PlayerMovement : MonoBehaviour
                 WallJump();
 
             _pa.SetFallingAnimationParameters(_velocity.y);
-            //_pa.animator.SetFloat("fallingSpeed", _velocity.y);
         }
 
-        _controller.Move(_velocity * Time.deltaTime);
+        if (_controller.enabled)
+            _controller.Move(_velocity * Time.deltaTime);
     }
 
     private void Jump()
@@ -95,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Respawn()
     {
+        Debug.Log("Resapwn");
         _velocity = Vector3.zero;
         transform.position = _startingPosition;
     }

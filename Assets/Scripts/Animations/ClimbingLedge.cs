@@ -15,10 +15,10 @@ public class ClimbingLedge : StateMachineBehaviour
         animator.ResetTrigger("onLedgeClimb");
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Camera.main.transform.LookAt(animator.transform);
+        
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -27,6 +27,7 @@ public class ClimbingLedge : StateMachineBehaviour
         _player.GetComponent<CharacterController>().enabled = true;
         animator.transform.localPosition = Vector3.zero;
         animator.applyRootMotion = false;
+        animator.GetComponentInParent<PlayerMovement>().Velocity = Vector3.zero;
         Camera.main.transform.localPosition = Camera.main.GetComponent<CameraStats>().startPosition;
         Camera.main.transform.localRotation = Camera.main.GetComponent<CameraStats>().startRotation;
     }

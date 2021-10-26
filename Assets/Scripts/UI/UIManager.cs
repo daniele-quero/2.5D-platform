@@ -26,6 +26,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _elevetorText;
 
+    [SerializeField]
+    private Text _deathText;
+
     //[SerializeField]
     //private GameObject _pauseMenu;
 
@@ -74,5 +77,16 @@ public class UIManager : MonoBehaviour
     public void SetElevatorText(string s)
     {
         _elevetorText.text = s;
+    }
+
+    private IEnumerator DeathDisplayRoutine()
+    {
+        Color textColor = _deathText.color;
+        for (float a = 1; a >= 0; a -= 0.02f)
+        {
+            Color newColor = new Color(textColor.r, textColor.g, textColor.b, a);
+            _deathText.color = newColor;
+            yield return new WaitForSeconds(0.025f);
+        }
     }
 }

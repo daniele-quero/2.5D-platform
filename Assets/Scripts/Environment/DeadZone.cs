@@ -6,7 +6,8 @@ public class DeadZone : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")   
-            other.GetComponent<PlayerStats>().AddLife(-1);
+        if (other.tag == "Player")
+            other.GetComponent<Death>().DeathLogic();
     }
+
 }

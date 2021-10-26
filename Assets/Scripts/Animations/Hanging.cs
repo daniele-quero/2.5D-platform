@@ -10,6 +10,9 @@ public class Hanging : StateMachineBehaviour
         {
             animator.SetTrigger("onLedgeClimb");
         }
+
+        animator.ResetTrigger("onJump");
+        animator.GetComponentInParent<PlayerMovement>().Velocity = Vector3.zero;
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -18,4 +21,5 @@ public class Hanging : StateMachineBehaviour
         animator.SetFloat("speed", 0f);
         animator.ResetTrigger("onLedgeGrab");
     }
+
 }

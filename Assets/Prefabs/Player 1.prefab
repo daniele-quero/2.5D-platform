@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 742077781804444816}
   - component: {fileID: 742077781804444824}
   - component: {fileID: 742077781804444827}
+  - component: {fileID: 882386310}
+  - component: {fileID: 8634513952389505338}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -31,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 742077781804444825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.32, y: 68.82, z: 103.78}
-  m_LocalScale: {x: 2.7, y: 2.7, z: 2.7}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children:
   - {fileID: 2101214320133784068}
   - {fileID: 2101214321171575868}
@@ -83,10 +85,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 8
   _g: 65
-  _jumpspeed: 16
-  _startingPosition: {x: 0, y: 0, z: 0}
+  _jumpspeed: 14
+  _startingPosition: {x: -0.23, y: 57.67, z: 25.31654}
   _velocity: {x: 0, y: 0, z: 0}
   _modelTransform: {fileID: 2101214320133784068}
+  isGrounded: 0
 --- !u!114 &742077781804444816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +128,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _climbTransform: {fileID: 0}
+--- !u!1818360608 &882386310
+PositionConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742077781804444825}
+  m_Enabled: 1
+  m_Weight: 0
+  m_TranslationAtRest: {x: -0.23, y: 48.1, z: 64.2}
+  m_TranslationOffset: {x: 0, y: 0, z: 0}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 0
+  m_AffectTranslationZ: 0
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 742077781804444821}
+    weight: 1
+--- !u!114 &8634513952389505338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742077781804444825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25596116978dcc64f952d2d235dbd448, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2101214321171575843
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +264,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 55
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 0
   m_Antialiasing: 0

@@ -31,7 +31,7 @@ public class PlayerStats : MonoBehaviour
         if (_lives > -1)
         {
             UIManager.Instance.UpdateLivesText(_lives);
-            GetComponent<PlayerMovement>().Respawn();
+            //GetComponent<PlayerMovement>().Respawn();
         }
         else
             SceneManager.LoadScene(0);
