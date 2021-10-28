@@ -8,10 +8,7 @@ public class Dying : StateMachineBehaviour
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
     {
         if (animator.transform.parent.position == _pm.StartingPosition)
-        {
-            Debug.Log("arrived");
             animator.SetTrigger("onRevive");
-        }
     }
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)

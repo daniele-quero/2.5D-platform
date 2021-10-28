@@ -8,6 +8,7 @@ public class Death : MonoBehaviour
     {
         GetComponent<PlayerStats>().AddLife(-1);
         GetComponent<PlayerAnimation>().SetDeathAnimationParameters();
+        transform.SetParent(null);
         UIManager.Instance.StartCoroutine("DeathDisplayRoutine");
         GetComponentInParent<PlayerMovement>().Velocity = Vector3.zero;
     }

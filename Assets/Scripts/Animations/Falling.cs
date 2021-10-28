@@ -8,6 +8,16 @@ public class Falling : StateMachineBehaviour
     {
         CharacterController controller = animator.GetComponentInParent<CharacterController>();
         if (controller != null && controller.isGrounded)
-            animator.SetTrigger("onLanding");
+        {
+            if (animator.GetComponentInParent<PlayerMovement>().Velocity.y < -50f)
+                animator.GetComponentInParent<Death>().DeathLogic();
+            else
+                animator.SetTrigger("onLanding");
+        }
+    }
+
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    {
+        animator.GetComponentInParent<CharacterController>().enabled = true;
     }
 }

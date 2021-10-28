@@ -7,8 +7,12 @@ public class Hanging : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (Input.GetKey(KeyCode.E))
-        {
             animator.SetTrigger("onLedgeClimb");
+
+        else if (Input.GetKey(KeyCode.R))
+        {
+            animator.GetComponentInParent<LedgeGrab>().TemporaryDeactivateLedge();
+            animator.SetTrigger("onLedgeLetGo");
         }
 
         animator.ResetTrigger("onJump");
@@ -20,6 +24,8 @@ public class Hanging : StateMachineBehaviour
         animator.ResetTrigger("onLedgeClimb");
         animator.SetFloat("speed", 0f);
         animator.ResetTrigger("onLedgeGrab");
+        animator.ResetTrigger("onJump");
+        animator.ResetTrigger("onLedgeLetGo");
     }
 
 }
